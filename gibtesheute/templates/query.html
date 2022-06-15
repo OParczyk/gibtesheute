@@ -1,24 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
 {% if results %}
-Tatsache! Heute gibt es was mit "{{query}}":
-{% for canteen, meals in results.items() %}
-<div>
-    <h1>Mensa: {{canteen}}</h1>
+<h1 class="title">Ja, heute gibt es <u>{{query}}</u>!</h1>
+<div class="resultcards">
+    {% for canteen, meals in results.items() %}
     {% for meal in meals %}
-    <div>
-        <h2>Gericht: {{meal['name']}}</h2>
-        <h3>Preise: {% for group, price in meal['prices'].items() %} {{group}}:
-            {{ "{:.2f}".format(price|float).replace('.',',') }}€
-            {% endfor%}</h3>
-        {% if meal['notes'] %}
-        <p>Anmerkungen: {{ (meal['notes']|string).replace('\'','')[1:-1] }}</p>
-        {% endif %}
+    <div class="individual-result">
+        <img src="https://{{meal['image']}}" alt="" class="image-header"></img>
+        <div class="result-textcontent">
+            <span class="canteen">{{canteen}}</span>
+            <h2 class="mealname">{{meal['name']}}</h2>
+            <p>
+                <b>Preise:</b>
+                <ul>
+                {% for group, price in meal['prices'].items() %}
+                    <li>{{group}}: {{ "{:.2f}".format(price|float).replace('.',',') }} €</li>
+                {% endfor %}
+                </ul>
+            </p>
+            {% if meal['notes'] %}
+            <p>Anmerkungen: {{ (meal['notes']|string).replace('\'','')[1:-1] }}</p>
+            {% endif %}
+        </div>
     </div>
     {% endfor %}
+    {% endfor %}
 </div>
-{% endfor %}
 {% else %}
-<h1>Nee, leider gibts heute nirgends was mit "{{query}}".</h1>
+<h1 class="title"><u>{{query}}</u> ist heute leider nicht im Angebot.</h1>
 {%endif%}
 {% endblock %}
