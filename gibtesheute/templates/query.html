@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if results %}
+Tatsache! Heute gibt es was mit "{{query}}":
+{% for canteen, meals in results.items() %}
+<div>
+    <h1>Mensa: {{canteen}}</h1>
+    {% for meal in meals %}
+    <div>
+        <h2>Gericht: {{meal['name']}}</h2>
+        <h3>Preise: {% for group, price in meal['prices'].items() %} {{group}}:
+            {{ "{:.2f}".format(price|float).replace('.',',') }}€
+            {% endfor%}</h3>
+        {% if meal['notes'] %}
+        <p>Anmerkungen: {{ (meal['notes']|string).replace('\'','')[1:-1] }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% else %}
+<h1>Nee, leider gibts heute nirgends was mit "{{query}}".</h1>
+{%endif%}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Gibt es heute ___?</h1>
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+
+    {{ form.query.label() }}
+    {% if form.query.errors %}
+    {{ form.query() }}
+    <div>
+        {% for error in form.query.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    <h2>{{ form.query() }}</h2>
+    {% endif %}
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>
+{% endblock %}
