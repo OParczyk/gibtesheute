@@ -1,0 +1,12 @@
+version: '2.2'
+
+services:
+
+  gibtesheute:
+    build:
+      context: .
+    restart: always
+    environment:
+      SECRET_KEY: 123
+    ports:
+      - "127.0.0.1:8000:8000"
