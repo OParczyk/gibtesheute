@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Gibt es heute ___?</h1>
+<h1 class="title">Gibt es heute <span aria-hidden="true">____</span>?</h1>
+<p>
+    Wir helfen dir, genau das zu finden, was du heute essen möchtest!
+</p>
 <form method="POST" action="">
     {{ form.hidden_tag() }}
 
