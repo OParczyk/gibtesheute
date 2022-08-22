@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1 class="title">Gibt es heute <span aria-hidden="true">____</span>?</h1>
+<h1 class="title">Gibt es morgen <span aria-hidden="true">____</span>?</h1>
 <p>
-    Wir helfen dir, genau das zu finden, was du heute essen möchtest!
+    Wir helfen dir, genau das zu finden, was du morgen essen möchtest!
 </p>
 <form method="POST" action="">
     {{ form.hidden_tag() }}
@@ -22,4 +22,6 @@
         {{ form.submit() }}
     </div>
 </form>
+
+Schon heute Hunger? Versuchs mit <a href="https://gibtesheute.de">gibtesheute.de</a>!<br>
 {% endblock %}

@@ -27,7 +27,7 @@ def mealcache():
     def update():
         global __mealcache
         global __mealcache_date
-        today = datetime.date.today()
+        tomorrow = datetime.date.today()+datetime.timedelta(days=1)
 
         all_canteens = requests.get(
             "https://api.studentenwerk-dresden.de/openmensa/v2/canteens")
@@ -47,7 +47,7 @@ def mealcache():
         all_meals = {}
         for canteen in filtered_canteens:
             meals = requests.get(
-                f"https://api.studentenwerk-dresden.de/openmensa/v2/canteens/{canteen['id']}/days/{today}/meals")
+                f"https://api.studentenwerk-dresden.de/openmensa/v2/canteens/{canteen['id']}/days/{tomorrow}/meals")
             if meals.status_code != 200:
                 continue
             meals = json.loads(meals.content)
