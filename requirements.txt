@@ -1,5 +1,5 @@
-Flask==2.1.2
-requests==2.28.0
-Flask-WTF==1.0.1
-WTForms==3.0.1
-pyuwsgi==2.0.19.1.post0
+Flask==3.0.2
+requests==2.31.0
+Flask-WTF==1.2.1
+WTForms==3.1.2
+pyuwsgi==2.0.23.post0
