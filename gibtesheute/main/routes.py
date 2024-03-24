@@ -1,7 +1,7 @@
 import datetime
 import json
 
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, current_app
 
 import requests
 
@@ -27,6 +27,7 @@ def mealcache():
     def update():
         global __mealcache
         global __mealcache_date
+        today = datetime.date.today()
         tomorrow = datetime.date.today()+datetime.timedelta(days=1)
 
         all_canteens = requests.get(
@@ -46,8 +47,12 @@ def mealcache():
 
         all_meals = {}
         for canteen in filtered_canteens:
-            meals = requests.get(
-                f"https://api.studentenwerk-dresden.de/openmensa/v2/canteens/{canteen['id']}/days/{tomorrow}/meals")
+            if current_app.config["FOOD_DAY"] == "tomorrow":
+                meals = requests.get(
+                    f"https://api.studentenwerk-dresden.de/openmensa/v2/canteens/{canteen['id']}/days/{tomorrow}/meals")
+            else:
+                meals = requests.get(
+                    f"https://api.studentenwerk-dresden.de/openmensa/v2/canteens/{canteen['id']}/days/{today}/meals")
             if meals.status_code != 200:
                 continue
             meals = json.loads(meals.content)
@@ -71,7 +76,8 @@ def home():
     if form.validate_on_submit():
         return redirect(url_for('main.search', query=form.query.data))
 
-    return render_template('home.html', form=form)
+    is_tomorrow = current_app.config["FOOD_DAY"] == "tomorrow"
+    return render_template('home.html', form=form, is_tomorrow=is_tomorrow)
 
 
 @main.route("/<query>/")
@@ -84,7 +90,8 @@ def search(query: str):
                 if canteen not in results:
                     results[canteen] = []
                 results[canteen].append(meal)
-    return render_template('query.html', query=query, results=results)
+    is_tomorrow = current_app.config["FOOD_DAY"] == "tomorrow"
+    return render_template('query.html', query=query, results=results, is_tomorrow=is_tomorrow)
 
 
 @main.route("/about")

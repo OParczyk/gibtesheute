@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 {% if results %}
+{% if is_tomorrow %}
 <h1 class="title">Ja, morgen gibt es <u>{{query}}</u>!</h1>
+{% else %}
+<h1 class="title">Ja, heute gibt es <u>{{query}}</u>!</h1>
+{% endif %}
 <div class="resultcards">
     {% for canteen, meals in results.items() %}
     {% for meal in meals %}
@@ -27,6 +31,10 @@
     {% endfor %}
 </div>
 {% else %}
+{% if is_tomorrow %}
 <h1 class="title"><u>{{query}}</u> ist morgen leider nicht im Angebot.</h1>
-{%endif%}
+{% else %}
+<h1 class="title"><u>{{query}}</u> ist heute leider nicht im Angebot.</h1>
+{% endif %}
+{% endif %}
 {% endblock %}

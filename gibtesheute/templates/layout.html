@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    {% if is_tomorrow %}
     {% if query %}
     <title>Gibt es morgen {{query}}?</title>
     {% else %}
     <title>Gibt es morgen ...?</title>
+    {% endif %}
+    {% else %}
+    {% if query %}
+    <title>Gibt es heute {{query}}?</title>
+    {% else %}
+    <title>Gibt es heute ...?</title>
+    {% endif %}
     {% endif %}
     <!-- Required meta tags -->
     <meta charset="utf-8">

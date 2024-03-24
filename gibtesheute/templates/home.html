@@ -1,9 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if is_tomorrow %}
 <h1 class="title">Gibt es morgen <span aria-hidden="true">____</span>?</h1>
 <p>
     Wir helfen dir, genau das zu finden, was du morgen essen möchtest!
 </p>
+{% else %}
+<h1 class="title">Gibt es heute <span aria-hidden="true">____</span>?</h1>
+<p>
+    Wir helfen dir, genau das zu finden, was du heute essen möchtest!
+</p>
+{% endif %}
 <form method="POST" action="">
     {{ form.hidden_tag() }}
 
@@ -22,6 +29,9 @@
         {{ form.submit() }}
     </div>
 </form>
-
+{% if is_tomorrow %}
 Schon heute Hunger? Versuchs mit <a href="https://gibtesheute.de">gibtesheute.de</a>!<br>
+{% else %}
+Auch morgen Appetit? Versuchs mit <a href="https://gibtesmorgen.de">gibtesmorgen.de</a>!<br>
+{% endif %}
 {% endblock %}
