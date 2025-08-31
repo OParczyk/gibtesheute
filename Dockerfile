@@ -17,4 +17,4 @@ COPY gibtesheute gibtesheute
 COPY wsgi.py wsgi.py
 
 EXPOSE 8000
-ENTRYPOINT ["uwsgi", "--http", "0.0.0.0:8000", "--master", "-p", "4", "-w", "wsgi:app"]
+ENTRYPOINT ["uwsgi", "--http-socket", "0.0.0.0:8000", "--master", "-p", "4", "-w", "wsgi:app"]
