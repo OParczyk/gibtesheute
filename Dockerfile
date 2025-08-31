@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:slim
 
 WORKDIR /usr/app
 
@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1
 COPY requirements.txt ./
 
 RUN apt-get update && \
-    apt-get install gcc -y && \
+    apt-get install gcc libexpat1 -y && \
     pip install --no-cache-dir -r requirements.txt \
     && apt-get purge gcc -y \
     && apt-get autoremove -y \
